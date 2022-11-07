@@ -3,6 +3,7 @@ import { Fragment, Component } from 'react';
 import Users from './Users';
 import classes from './UserFinder.module.css';
 import UsersContext from '../store/users-context';
+import ErrorBoundary from './ErrorBoundary';
 
 class UserFinder extends Component {
   static contextType = UsersContext;
@@ -16,6 +17,7 @@ class UserFinder extends Component {
   }
 
   componentDidMount() {
+    console.log('UserFinder is mounted');
     this.setState({ filteredUsers: this.context.users });
   }
 
@@ -39,7 +41,9 @@ class UserFinder extends Component {
         <div className={classes.finder}>
           <input type="search" onChange={this.searchChangeHandler.bind(this)} />
         </div>
-        <Users users={this.state.filteredUsers} />
+        <ErrorBoundary>
+          <Users users={this.state.filteredUsers} />
+        </ErrorBoundary>
       </Fragment>
     );
   }

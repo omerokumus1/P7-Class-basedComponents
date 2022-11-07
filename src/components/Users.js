@@ -12,6 +12,13 @@ class Users extends Component {
     };
   }
 
+  componentDidUpdate() {
+    console.log('Users is updated');
+    if (this.props.users.length === 0) {
+      throw new Error('Need more user!');
+    }
+  }
+
   toggleUsersHandler() {
     this.setState((curState) => {
       return { showUsers: !curState.showUsers };
